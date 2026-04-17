@@ -1,0 +1,12 @@
+.venv/
+venv/
+alpha_backend/alpha_backend/
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+.pytest_cache/
+.coverage
+dist/
+build/
+*.log
