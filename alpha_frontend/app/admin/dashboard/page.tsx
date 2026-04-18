@@ -12,6 +12,7 @@ export default function Dashboard() {
   const { isAuthed, loading } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState({ services: 0, portfolio: 0, unread: 0 });
+  const [statsLoaded, setStatsLoaded] = useState(false);
 
   const fetchStats = () => {
     Promise.all([
@@ -24,12 +25,14 @@ export default function Dashboard() {
         portfolio: resPortfolio.data.length,
         unread: resInquiries.data.items.filter((i: any) => !i.is_read).length
       });
+      setStatsLoaded(true);
     }).catch(console.error);
   };
 
   useEffect(() => {
     if (isAuthed) {
       fetchStats();
+      setStatsLoaded(true);
     }
   }, [isAuthed]);
 
@@ -57,15 +60,15 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
             <h2 className="text-slate-500 text-lg mb-2">Total Services</h2>
-            <p className="text-5xl font-bold font-syne text-slate-900">{stats.services}</p>
+            <p className="text-5xl font-bold font-syne text-slate-900">{statsLoaded ? stats.services : '...'}</p>
           </div>
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
             <h2 className="text-slate-500 text-lg mb-2">Portfolio Items</h2>
-            <p className="text-5xl font-bold font-syne text-slate-900">{stats.portfolio}</p>
+            <p className="text-5xl font-bold font-syne text-slate-900">{statsLoaded ? stats.portfolio : '...'}</p>
           </div>
           <div className="bg-blue-600 text-white p-8 rounded-3xl shadow-lg shadow-blue-500/20">
             <h2 className="text-blue-200 text-lg mb-2">Unread Inquiries</h2>
-            <p className="text-5xl font-bold font-syne">{stats.unread}</p>
+            <p className="text-5xl font-bold font-syne">{statsLoaded ? stats.unread : '...'}</p>
           </div>
         </div>
 

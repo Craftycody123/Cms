@@ -25,7 +25,7 @@ export default function AdminInquiries() {
   useAutoRefresh(fetchInquiries, 3000, [isAuthed]);
 
   const handleMarkRead = async (id: number) => {
-    await api.patch(`/inquiries/${id}/read`);
+    await api.patch(`/inquiries/${id}/read`, { is_read: true });
     fetchInquiries();
   };
 
