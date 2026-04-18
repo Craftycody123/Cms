@@ -55,11 +55,11 @@ def init_db(db: Session):
         db.commit()
 
     if db.query(SiteSetting).count() == 0:
-        settings = [
+        site_settings = [
             SiteSetting(key="hero_headline", value="Welcome to Alpha Agency"),
             SiteSetting(key="hero_subtext", value="We build brands that stand out in the modern world."),
             SiteSetting(key="about_teaser", value="Alpha is a leading creative agency dedicated to your success."),
             SiteSetting(key="contact_email", value="hello@alpha.com"),
         ]
-        db.add_all(settings)
+        db.add_all(site_settings)
         db.commit()
