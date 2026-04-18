@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.core.security import verify_password, create_access_token, get_current_user
+from app.core.rate_limiter import check_rate_limit
 from app.models.user import User
 from app.schemas.token import Token
 from app.schemas.user import UserResponse
@@ -10,23 +11,13 @@ from app.schemas.user import UserResponse
 router = APIRouter()
 
 @router.post("/login", response_model=Token)
-def login(request: Request, db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
+async def login(request: Request, db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
     """
     Login endpoint. Rate limited to 5 requests per minute.
     The 'username' field should contain the admin email address.
     """
-    # Apply rate limiting via the limiter attached to request.app
-    from slowapi import Limiter
-    from slowapi.util import get_remote_address
-    limiter = request.app.state.limiter
-    limiter._storage.clear()  # Optional: clear expired entries
-    
-    # Manual rate limit check: 5 per minute
-    key = get_remote_address(request)
-    try:
-        limiter.hit("5/minute", key, request=request)
-    except Exception:
-        raise HTTPException(status_code=429, detail="Too many login attempts. Try again later.")
+    # Apply rate limiting (5 attempts per minute per IP)
+    await check_rate_limit(request)
     
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user or not verify_password(form_data.password, user.hashed_password):
