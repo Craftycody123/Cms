@@ -1,5 +1,6 @@
 'use client';
 import { useAuth } from '@/hooks/useAuth';
+import { useAutoRefresh } from '@/hooks/useAutoRefresh';
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { CheckCircle, Circle, Trash2 } from 'lucide-react';
@@ -9,12 +10,19 @@ export default function AdminInquiries() {
   const [inquiries, setInquiries] = useState<any[]>([]);
 
   const fetchInquiries = () => {
-    api.get('/inquiries').then(res => setInquiries(res.data)).catch(console.error);
+    api.get('/inquiries').then(res => {
+      // Handle both array and paginated response
+      const data = Array.isArray(res.data) ? res.data : res.data.items || [];
+      setInquiries(data);
+    }).catch(console.error);
   };
 
   useEffect(() => {
     if (isAuthed) fetchInquiries();
   }, [isAuthed]);
+
+  // Auto-refresh inquiries every 3 seconds
+  useAutoRefresh(fetchInquiries, 3000, [isAuthed]);
 
   const handleMarkRead = async (id: number) => {
     await api.patch(`/inquiries/${id}/read`);

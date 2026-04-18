@@ -1,5 +1,6 @@
 'use client';
 import { useAuth } from '@/hooks/useAuth';
+import { useAutoRefresh } from '@/hooks/useAutoRefresh';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
@@ -12,21 +13,28 @@ export default function Dashboard() {
   const router = useRouter();
   const [stats, setStats] = useState({ services: 0, portfolio: 0, unread: 0 });
 
+  const fetchStats = () => {
+    Promise.all([
+      api.get('/services'),
+      api.get('/portfolio'),
+      api.get('/inquiries')
+    ]).then(([resServices, resPortfolio, resInquiries]) => {
+      setStats({
+        services: resServices.data.length,
+        portfolio: resPortfolio.data.length,
+        unread: resInquiries.data.items.filter((i: any) => !i.is_read).length
+      });
+    }).catch(console.error);
+  };
+
   useEffect(() => {
     if (isAuthed) {
-      Promise.all([
-        api.get('/services'),
-        api.get('/portfolio'),
-        api.get('/inquiries')
-      ]).then(([resServices, resPortfolio, resInquiries]) => {
-        setStats({
-          services: resServices.data.length,
-          portfolio: resPortfolio.data.length,
-          unread: resInquiries.data.filter((i: any) => !i.is_read).length
-        });
-      }).catch(console.error);
+      fetchStats();
     }
   }, [isAuthed]);
+
+  // Auto-refresh stats every 3 seconds
+  useAutoRefresh(fetchStats, 3000, [isAuthed]);
 
   const handleLogout = () => {
     removeToken();

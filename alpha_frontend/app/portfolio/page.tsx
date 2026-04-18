@@ -1,3 +1,7 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { useAutoRefresh } from '@/hooks/useAutoRefresh';
+
 type Portfolio = {
   id: number;
   title: string;
@@ -7,18 +11,33 @@ type Portfolio = {
   client_placeholder: string;
 };
 
-async function getPortfolio() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/portfolio`, { next: { revalidate: 10 } });
-    if (!res.ok) return [];
-    return await res.json();
-  } catch (error) {
-    return [];
-  }
-}
+export default function PortfolioPage() {
+  const [portfolio, setPortfolio] = useState<Portfolio[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function PortfolioPage() {
-  const portfolio: Portfolio[] = await getPortfolio();
+  const fetchPortfolio = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/portfolio`);
+      if (!res.ok) {
+        setPortfolio([]);
+        return;
+      }
+      const data = await res.json();
+      setPortfolio(data);
+    } catch (error) {
+      console.error('Failed to fetch portfolio:', error);
+      setPortfolio([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPortfolio();
+  }, []);
+
+  // Auto-refresh portfolio every 10 seconds
+  useAutoRefresh(fetchPortfolio, 10000, []);
 
   return (
     <div className="pt-24 min-h-screen bg-slate-50">
@@ -33,8 +52,10 @@ export default async function PortfolioPage() {
 
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
-          {portfolio.length === 0 && (
-             <p className="text-center text-slate-500">Portfolio items loading...</p>
+          {loading && <p className="text-center text-slate-500">Loading portfolio...</p>}
+          
+          {!loading && portfolio.length === 0 && (
+             <p className="text-center text-slate-500">No portfolio items found.</p>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">

@@ -1,5 +1,6 @@
 'use client';
 import { useAuth } from '@/hooks/useAuth';
+import { useAutoRefresh } from '@/hooks/useAutoRefresh';
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { Edit2, Trash2, Upload } from 'lucide-react';
@@ -19,6 +20,9 @@ export default function AdminPortfolio() {
   useEffect(() => {
     if (isAuthed) fetchPortfolio();
   }, [isAuthed]);
+
+  // Auto-refresh portfolio every 5 seconds
+  useAutoRefresh(fetchPortfolio, 5000, [isAuthed]);
 
   const handleDelete = async (id: number) => {
     if (confirm('Are you sure?')) {
