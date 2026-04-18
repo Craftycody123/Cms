@@ -32,7 +32,6 @@ export default function Dashboard() {
   useEffect(() => {
     if (isAuthed) {
       fetchStats();
-      setStatsLoaded(true);
     }
   }, [isAuthed]);
 
