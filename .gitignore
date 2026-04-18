@@ -1,12 +1,53 @@
+# Python virtual environments
 .venv/
 venv/
-alpha_backend/alpha_backend/
+env/
+ENV/
+
+# Python cache files
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+*.so
+.Python
 *.egg-info/
 .pytest_cache/
 .coverage
+.coverage.*
+htmlcov/
 dist/
 build/
+
+# Backend venv (local development)
+alpha_backend/alpha_backend/
+
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Node modules (frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build logs
 *.log
+logs/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
