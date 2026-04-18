@@ -40,6 +40,13 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# Next.js build and cache
+.next/
+.swc/
+
+# Turbo cache
+.turbo/
+
 # Build logs
 *.log
 logs/
