@@ -7,6 +7,9 @@ from app.core.config import settings
 from app.api.routes import auth, services, portfolio, team, settings as site_settings, inquiries, upload
 from app.db.session import SessionLocal
 from app.db.init_db import init_db
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -52,6 +55,76 @@ async def global_exception_handler(request: Request, exc: Exception):
             status_code=500,
             content={"detail": str(exc), "type": type(exc).__name__}
         )
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+app.mount(
+    "/static",
+    StaticFiles(directory=BASE_DIR / "static"),
+    name="static"
+)
+
+app.mount(
+    "/js",
+    StaticFiles(directory=BASE_DIR / "alpha_frontend_stich" / "js"),
+    name="js"
+)
+
+templates = Jinja2Templates(
+    directory=BASE_DIR / "alpha_frontend_stich"
+)
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request}
+    )
+@app.get("/about")
+async def about(request: Request):
+    return templates.TemplateResponse(
+        "about.html",
+        {"request": request}
+    )
+
+
+@app.get("/services")
+async def services_page(request: Request):
+    return templates.TemplateResponse(
+        "services.html",
+        {"request": request}
+    )
+
+
+@app.get("/works")
+async def works(request: Request):
+    return templates.TemplateResponse(
+        "works.html",
+        {"request": request}
+    )
+
+
+@app.get("/why")
+async def why(request: Request):
+    return templates.TemplateResponse(
+        "why.html",
+        {"request": request}
+    )
+
+
+@app.get("/contact")
+async def contact(request: Request):
+    return templates.TemplateResponse(
+        "contact.html",
+        {"request": request}
+    )
+
+
+@app.get("/admin")
+async def admin(request: Request):
+    return templates.TemplateResponse(
+        "admin.html",
+        {"request": request}
+    )
+
 
 # Register routers
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])

@@ -6,43 +6,7 @@
 <title>Alpha | Brand Communication That Works</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Work+Sans:wght@500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "laurel-green": "#B5BFA1", "tertiary-fixed": "#B5BFA1", "outline": "rgba(255,255,255,0.1)",
-          "on-surface-variant": "rgba(255,255,255,0.7)", "secondary-fixed": "#B5BFA1", "on-background": "#ffffff",
-          "secondary-fixed-dim": "#a2ad8d", "on-error": "#ffffff", "on-primary-container": "rgba(255,255,255,0.7)",
-          "inverse-primary": "#c8c6c5", "on-secondary-container": "#1a1c1c", "secondary": "#B5BFA1", "tertiary": "#ffffff",
-          "error": "#ba1a1a", "surface-dim": "#141313", "on-tertiary-fixed": "#ffffff", "inverse-surface": "#f1f1f1",
-          "error-container": "#ffdad6", "inverse-on-surface": "#121212", "surface-container-lowest": "#0a0a0a",
-          "background": "#141313", "on-secondary-fixed-variant": "#324c43", "on-tertiary": "#1a1c1c",
-          "on-secondary-fixed": "#052018", "surface-container": "rgba(255,255,255,0.05)", "primary-container": "#ffffff",
-          "tertiary-container": "#ffffff", "tertiary-fixed-dim": "#B5BFA1", "surface-container-highest": "rgba(255,255,255,0.1)",
-          "surface": "#141313", "on-tertiary-container": "rgba(255,255,255,0.7)", "primary-fixed": "#ffffff",
-          "on-primary-fixed": "#121212", "on-primary-fixed-variant": "#474646", "surface-container-low": "rgba(255,255,255,0.03)",
-          "outline-variant": "rgba(255,255,255,0.1)", "on-surface": "#ffffff", "surface-bright": "rgba(255,255,255,0.1)",
-          "surface-container-high": "rgba(255,255,255,0.08)", "on-primary": "#1a1c1c", "primary-fixed-dim": "#c8c6c5",
-          "primary": "#ffffff", "secondary-container": "#B5BFA1", "surface-tint": "#5f5e5e", "on-secondary": "#1a1c1c",
-          "on-error-container": "#93000a", "surface-variant": "rgba(255,255,255,0.1)"
-        },
-        borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
-        spacing: { "margin-desktop": "64px", base: "8px", "margin-mobile": "20px", gutter: "24px", "container-max": "1280px" },
-        fontFamily: { "body-lg": ["Inter"], "body-md": ["Inter"], "display-lg": ["Poppins"], "headline-lg": ["Montserrat"],
-          "accent-label": ["Work Sans"], "caption": ["Inter"], "headline-md": ["Montserrat"], "headline-lg-mobile": ["Montserrat"] },
-        fontSize: { "body-lg": ["18px", {lineHeight:"1.6", fontWeight:"400"}], "body-md": ["16px", {lineHeight:"1.5", fontWeight:"400"}],
-          "display-lg": ["64px", {lineHeight:"1.1", letterSpacing:"-0.02em", fontWeight:"700"}],
-          "headline-lg": ["40px", {lineHeight:"1.2", letterSpacing:"-0.01em", fontWeight:"700"}],
-          "accent-label": ["14px", {lineHeight:"1.2", letterSpacing:"0.05em", fontWeight:"500"}],
-          "caption": ["12px", {lineHeight:"1.4", fontWeight:"400"}], "headline-md": ["24px", {lineHeight:"1.3", fontWeight:"600"}],
-          "headline-lg-mobile": ["32px", {lineHeight:"1.2", fontWeight:"700"}] }
-      }
-    }
-  }
-</script>
+<link rel="stylesheet" href="/static/css/output.css">
 <style>
   .page-bg-fixed { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-20; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOIWUvRTi9foiajASoIBN--mm6S9GhJoVPtLBgZEhZosk_sdnWo4sOgmMHsTpASDReoiIIr_QkCj70GxDFDGyqNRcqrDxA8uro8S5-ZVmn_sAgvj1VtyUlYkYQUNrfDemxael7iI4rbzqmnOanj8DN6HAX7wrTPdK6-qxjEmiE69rKi_2zuxooK-NEQju8DnSHCAcmlRBGpW3X8CbnWIa-s62NkT4o0KIlddGqzn9pYz_cdKLHo44qbG6GiQE8yTTWnKgeGMGpqMs'); background-size: cover; background-position: center; background-attachment: fixed; }
   .dark-overlay { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-19; background: radial-gradient(circle at center, rgba(20,19,19,0.4) 0%, rgba(20,19,19,0.95) 100%); backdrop-filter: brightness(0.4) contrast(1.1); }
@@ -67,13 +31,28 @@
   <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
     <div class="font-headline-md text-headline-md font-bold tracking-tighter text-white flex items-center gap-2">Alpha<span class="w-3 h-3 bg-laurel-green inline-block rotate-45"></span></div>
     <div class="hidden md:flex items-center gap-8">
-      <a href="index.html" class="text-white font-bold border-b-2 border-laurel-green pb-1">Home</a>
-      <a href="about.html" class="text-white/70 hover:text-white transition-colors">About Alpha</a>
-      <a href="services.html" class="text-white/70 hover:text-white transition-colors">Services</a>
-      <a href="works.html" class="text-white/70 hover:text-white transition-colors">Works</a>
-      <a href="why.html" class="text-white/70 hover:text-white transition-colors">Why Choose Us</a>
-      <a href="contact.html" class="text-white/70 hover:text-white transition-colors">Contact</a>
-    </div>
+  <a href="/" class="text-white font-bold border-b-2 border-laurel-green pb-1">Home</a>
+
+  <a href="/about" class="text-white/70 hover:text-white transition-colors">
+    About Alpha
+  </a>
+
+  <a href="/services" class="text-white/70 hover:text-white transition-colors">
+    Services
+  </a>
+
+  <a href="/works" class="text-white/70 hover:text-white transition-colors">
+    Works
+  </a>
+
+  <a href="/why" class="text-white/70 hover:text-white transition-colors">
+    Why Choose Us
+  </a>
+
+  <a href="/contact" class="text-white/70 hover:text-white transition-colors">
+    Contact
+  </a>
+</div>
     <!-- Login button removed as per earlier instructions, but you can add it back if needed -->
   </div>
 </nav>
@@ -92,7 +71,7 @@
 <section class="relative py-32 px-margin-mobile md:px-margin-desktop"><div class="max-w-container-max mx-auto text-center mb-20"><span class="font-accent-label text-laurel-green tracking-[0.2em] uppercase mb-4 block font-bold reveal-on-scroll">Capabilities</span><h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4 text-white reveal-on-scroll">Our Service Ecosystem</h2><p class="font-body-md text-white/70 max-w-2xl mx-auto reveal-on-scroll">Comprehensive solutions integrated across every touchpoint.</p></div><div class="ecosystem-viewport reveal-on-scroll"><div class="central-hub"><span class="font-headline-md text-2xl tracking-tight text-black font-extrabold">Alpha</span></div><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="border border-laurel-green/10 rounded-full w-[450px] h-[450px] absolute"></div><div class="border border-laurel-green/5 rounded-full w-[650px] h-[650px] absolute hidden md:block"></div></div><div class="orbit-container" id="orbitContainer"></div></div></section>
 <section class="py-24 px-margin-mobile md:px-margin-desktop"><div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter"><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">15+</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Years of Excellence</p></div><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">500+</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Campaigns Delivered</p></div><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">120</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Industry Awards</p></div></div></section>
 <section class="py-24 px-margin-mobile md:px-margin-desktop"><div class="max-w-container-max mx-auto"><div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:min-h-[600px]"><div class="md:col-span-2 md:row-span-2 laurel-glass p-10 flex flex-col justify-end relative overflow-hidden group reveal-on-scroll"><div class="absolute inset-0 -z-10 transition-transform duration-1000 group-hover:scale-110"><img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiI5aqbcUvNb-dFfDtVLgQz_AblY5S5bb7c5hjgD3uB8hc-2Bk4QiLspuf-27ifOcmtvNKDXADly5V_9dnE02Ih4gOGjzx-EYG9wkl7h35rk9X9nnTkL_GmCrKN9y4LHAwrPE9aBs5fkxblPCdXsT0AsBJLN8hq-hJb9u5DTRjdvxb9x2ebmq7-nrpcs4q3RVWyRLKCVpVsCKSjs5l3PvwmY_9NyhvT9mA4jBRtThtC1ShlUf2kczPqcYp9b6ZHJvFseBlHMBfhPo"/></div><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div><div class="relative z-10 text-white"><span class="text-laurel-green font-accent-label tracking-widest uppercase text-xs mb-2 block font-bold">Comprehensive</span><h3 class="font-headline-md text-headline-md mb-2 font-extrabold">Integrated Strategy</h3><p class="font-body-md text-white/70">Holistic brand narratives that cut through the noise.</p></div></div><div class="md:col-span-1 laurel-glass p-8 flex flex-col gap-4 border-l-4 border-l-laurel-green reveal-on-scroll"><span class="material-symbols-outlined text-laurel-green text-3xl">brush</span><h3 class="font-headline-md text-white text-body-lg font-bold">Identity Design</h3><p class="font-caption text-white/60">Visual systems that define market leaders.</p></div><div class="md:col-span-1 laurel-glass p-8 flex flex-col gap-4 border-l-4 border-l-laurel-green reveal-on-scroll"><span class="material-symbols-outlined text-laurel-green text-3xl">campaign</span><h3 class="font-headline-md text-white text-body-lg font-bold">Global Reach</h3><p class="font-caption text-white/60">Multi-channel media planning.</p></div><div class="md:col-span-2 laurel-glass p-8 flex items-center justify-between border-l-4 border-l-laurel-green reveal-on-scroll"><div><h3 class="font-headline-md text-white font-extrabold">Ready to scale?</h3><p class="font-body-md text-white/70">Connect with our strategic consultants today.</p></div><button class="bg-laurel-green text-black p-5 rounded-full hover:scale-110 transition-all"><span class="material-symbols-outlined">trending_up</span></button></div></div></div></section>
-<footer class="bg-black/80 backdrop-blur-xl border-t border-white/5 w-full py-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base"><div class="flex flex-col items-center md:items-start gap-4"><div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">Alpha<span class="w-2 h-2 bg-laurel-green rotate-45"></span></div><p class="font-body-md text-white/60 md:max-w-xs text-center md:text-left font-medium">Precision-driven advertising for the modern enterprise.</p></div><div class="flex flex-wrap justify-center gap-8 py-8 md:py-0"><a href="index.html" class="font-body-md text-white/60 hover:text-laurel-green transition-all font-semibold">Home</a><a href="about.html" class="font-body-md text-white/60 hover:text-laurel-green font-semibold">About Alpha</a><a href="services.html" class="font-body-md text-white/60 hover:text-laurel-green font-semibold">Services</a><a href="works.html" class="font-body-md text-white/60 hover:text-laurel-green font-semibold">Works</a><a href="why.html" class="font-body-md text-white/60 hover:text-laurel-green font-semibold">Why Choose Us</a><a href="contact.html" class="font-body-md text-white/60 hover:text-laurel-green font-semibold">Contact</a></div><div class="font-body-md text-white/40 text-center md:text-right font-medium">© 2024 Alpha Advertising Agency.</div></div></footer>
+<footer class="bg-black/80 backdrop-blur-xl border-t border-white/5 w-full py-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base"><div class="flex flex-col items-center md:items-start gap-4"><div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">Alpha<span class="w-2 h-2 bg-laurel-green rotate-45"></span></div><p class="font-body-md text-white/60 md:max-w-xs text-center md:text-left font-medium">Precision-driven advertising for the modern enterprise.</p></div><div class="flex flex-wrap justify-center gap-8"><a href="/" class="text-white/60 hover:text-laurel-green font-semibold">Home</a><a href="/about" class="text-white/60 hover:text-laurel-green font-semibold">About</a><a href="/services" class="text-white/60 hover:text-laurel-green font-semibold">Services</a><a href="/works" class="text-white/60 hover:text-laurel-green font-semibold">Works</a><a href="/why" class="text-white/60 hover:text-laurel-green font-semibold">Why Choose Us</a><a href="/contact" class="text-white/60 hover:text-laurel-green font-semibold">Contact</a></div><div class="font-body-md text-white/40">© 2024 Alpha Advertising Agency.</div></div></footer>
 <script>document.addEventListener('DOMContentLoaded',()=>{const c=document.getElementById('orbitContainer');if(c){const s=['Typography','Ad Campaigns','Brand Strategy','Event Management','Exhibition Stands','Billboards','MUPIs','Vehicle Graphics','Logo Design'],r=260;s.forEach((t,i)=>{const a=(i/s.length)*360,w=document.createElement('div');w.className='node-wrapper';w.style.transform=`rotate(${a}deg) translate(${r}px)`;const n=document.createElement('div');n.className='service-node';n.textContent=t;const k=`counter-rotate-node-${i}`,sty=document.createElement('style');sty.innerText=`@keyframes ${k}{from{transform:translate(-50%,-50%) rotate(${-a}deg)}to{transform:translate(-50%,-50%) rotate(${-a-360}deg)}}`;document.head.appendChild(sty);n.style.animationName=k;n.style.animationDuration='60s';n.style.animationTimingFunction='linear';n.style.animationIterationCount='infinite';w.appendChild(n);c.appendChild(w)});}
 const obs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('active')})},{threshold:.15});document.querySelectorAll('.reveal-on-scroll').forEach(e=>obs.observe(e));setTimeout(()=>{document.querySelectorAll('.reveal-on-scroll').forEach(e=>{e.getBoundingClientRect().top<window.innerHeight&&e.classList.add('active')})},100)});</script>
 </body>

@@ -3,38 +3,150 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alpha | Admin Access</title>
+<title>Alpha | Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: { "laurel-green": "#B5BFA1", "on-secondary-container": "#4d685e", "on-primary": "#1a1c1c","surface-glass": "rgba(253,252,248,0.7)", "error-container": "#ffdad6", "on-tertiary-fixed-variant": "#454747","tertiary": "#ffffff", "secondary-fixed-dim": "#B5BFA1", "on-secondary-fixed-variant": "#324c43","outline": "#747878", "surface-container-highest": "#e2e2e2", "inverse-surface": "#2f3131","surface": "#141313", "surface-container-high": "#e8e8e8", "sage-muted": "#D7DEC8","tertiary-fixed-dim": "#c6c6c7", "on-tertiary": "#ffffff", "on-surface-variant": "#444748","on-secondary-fixed": "#052018", "surface-bright": "#f9f9f9", "primary-container": "#1c1b1b","primary-fixed-dim": "#c8c6c5", "surface-container-lowest": "#ffffff", "on-surface": "#e5e2e1","background": "#141313", "error": "#ba1a1a", "on-tertiary-fixed": "#1a1c1c","secondary-container": "#B5BFA1", "secondary": "#B5BFA1", "on-error": "#ffffff","surface-container-low": "#f3f3f3", "on-primary-fixed-variant": "#474646", "on-primary-fixed": "#1c1b1b","primary": "#ffffff", "on-error-container": "#93000a", "on-background": "#e5e2e1","inverse-primary": "#c8c6c5", "surface-tint": "#5f5e5e", "secondary-fixed": "#B5BFA1","primary-fixed": "#e5e2e1", "on-tertiary-container": "#838484", "on-primary-container": "#858383","tertiary-fixed": "#e2e2e2", "inverse-on-surface": "#f1f1f1", "surface-variant": "#e2e2e2","on-secondary": "#1a1c1c", "surface-container": "#eeeeee", "tertiary-container": "#1a1c1c","outline-variant": "#c4c7c7", "surface-card": "rgba(255,255,255,0.6)", "surface-dim": "#dadada" },
-        borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
-        spacing: { "margin-desktop": "64px", "margin-mobile": "20px", base: "8px", gutter: "24px", "container-max": "1280px" },
-        fontFamily: { "body-md": ["Inter"], "headline-lg-mobile": ["Montserrat"], "headline-lg": ["Montserrat"], "headline-md": ["Montserrat"], "display-lg": ["Montserrat"], "accent-label": ["Work Sans"], "caption": ["Inter"], "body-lg": ["Inter"] },
-        fontSize: { "body-md": ["16px", {lineHeight:"1.5", fontWeight:"400"}], "headline-lg-mobile": ["32px", {lineHeight:"1.2", fontWeight:"700"}], "headline-lg": ["40px", {lineHeight:"1.2", letterSpacing:"-0.01em", fontWeight:"700"}], "headline-md": ["24px", {lineHeight:"1.3", fontWeight:"600"}], "display-lg": ["64px", {lineHeight:"1.1", letterSpacing:"-0.02em", fontWeight:"700"}], "accent-label": ["14px", {lineHeight:"1.2", letterSpacing:"0.05em", fontWeight:"500"}], "caption": ["12px", {lineHeight:"1.4", fontWeight:"400"}], "body-lg": ["18px", {lineHeight:"1.6", fontWeight:"400"}] }
-      }
-    }
-  }
-</script>
+<link rel="stylesheet" href="/static/css/output.css">
 <style>
   body { background-color:#141313; margin:0; overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column; }
   .page-bg-fixed { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-20; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTbAOF8jyit9Ule_XlD-x2uReeC9SM1ih7NJMgH3rnSMvsuTxff9lmq8CitkF_SrYAwEw23fb2J9y9PnwhSmnl9TMT1CrGAtGkLsFKPr-aNfKwjuvly0G8NP0r7Xm7UGopZnhH3tSV7XwxtMVDtOOEj10H82rN8TiadcMMFg7h_ATOTdvz6v387AvmrdBQCIu2-mTvfvDAd5DBW16jT_Fes8EMzMc-mq11KgP533Mfqip9enEog_82RWLurNOTxHbmy0O-OlMQxEE'); background-size:cover; background-position:center; background-attachment:fixed; filter:brightness(0.4); }
   .laurel-glass { background: rgba(181,191,161,0.08); backdrop-filter: blur(32px); border: 1px solid rgba(181,191,161,0.2); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3); }
   .input-focus-border:focus { outline:none; border-color:#B5BFA1; }
   .material-symbols-outlined { font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24; vertical-align:middle; }
-  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1); will-change:transform,opacity; }
-  .reveal.active { opacity:1; transform:translateY(0); }
+  .tab-button { padding:12px 24px; background:transparent; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:all 0.3s; border-bottom:2px solid transparent; }
+  .tab-button.active { border-color:#B5BFA1; color:#B5BFA1; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .admin-header { background:rgba(0,0,0,0.4); backdrop-filter:blur(32px); border-bottom:1px solid rgba(181,191,161,0.2); padding:20px; }
 </style>
 </head>
 <body class="text-white font-body-md">
 <div class="page-bg-fixed"></div>
-<nav class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5"><div class="flex items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"><div class="font-headline-md text-headline-md font-bold tracking-tighter text-white flex items-center gap-2 shrink-0">Alpha<span class="w-3 h-3 bg-laurel-green inline-block rotate-45"></span></div><div class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2"><a href="index.html" class="text-white/70 hover:text-white">Home</a><a href="about.html" class="text-white/70 hover:text-white">About Alpha</a><a href="services.html" class="text-white/70 hover:text-white">Services</a><a href="works.html" class="text-white/70 hover:text-white">Works</a><a href="why.html" class="text-white/70 hover:text-white">Why Choose Us</a><a href="contact.html" class="text-white/70 hover:text-white">Contact</a></div><a href="admin.html" class="text-white font-bold border-b-2 border-laurel-green pb-1 ml-auto hidden md:block">Admin</a></div></nav>
-<main class="flex-grow flex items-center justify-center px-margin-mobile pt-32 pb-24"><div class="w-full max-w-md laurel-glass rounded-xl p-8 md:p-12 relative overflow-hidden reveal active"><div class="relative z-10 text-center mb-10"><h1 class="font-display-lg text-white mb-2 font-bold text-5xl text-center">Admin Login</h1></div><form class="space-y-10 relative z-10" onsubmit="event.preventDefault();"><div class="space-y-3"><label class="block font-accent-label text-accent-label font-bold text-laurel-green tracking-wider uppercase text-center transition-colors duration-300">Username</label><input type="text" class="w-full bg-white/5 border-0 border-b-2 py-4 px-2 focus:ring-0 input-focus-border text-white text-center border-white/20"></div><div class="space-y-3"><label class="block font-accent-label text-accent-label font-bold text-laurel-green tracking-wider uppercase text-center transition-colors duration-300">Password</label><input type="password" class="w-full bg-white/5 border-0 border-b-2 py-4 px-2 focus:ring-0 input-focus-border text-white text-center border-white/20"></div><div class="pt-4"><button type="submit" class="w-full bg-laurel-green text-black font-accent-label font-bold py-5 px-8 hover:bg-opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-4 group"><span class="uppercase tracking-widest">Authorize Access</span><span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span></button></div></form><div class="mt-8 flex justify-center"><div class="h-1 w-12 bg-laurel-green/30 rounded-full"></div></div></div></main>
-<footer class="bg-black/80 backdrop-blur-xl border-t border-white/5 w-full py-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base"><div class="flex flex-col items-center md:items-start gap-4"><div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">Alpha<span class="w-2 h-2 bg-laurel-green rotate-45"></span></div><p class="font-body-md text-white/60 md:max-w-xs text-center md:text-left font-medium">Precision-driven advertising for the modern enterprise.</p></div><div class="flex flex-wrap justify-center gap-8"><a href="index.html" class="text-white/60 hover:text-laurel-green font-semibold">Home</a><a href="about.html" class="text-white/60 hover:text-laurel-green font-semibold">About</a><a href="services.html" class="text-white/60 hover:text-laurel-green font-semibold">Services</a><a href="works.html" class="text-white/60 hover:text-laurel-green font-semibold">Works</a><a href="why.html" class="text-white/60 hover:text-laurel-green font-semibold">Why Choose Us</a><a href="contact.html" class="text-white/60 hover:text-laurel-green font-semibold">Contact</a></div><div class="font-body-md text-white/40">© 2024 Alpha Advertising Agency.</div></div></footer>
-<script>window.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{document.querySelectorAll('.reveal').forEach(e=>e.classList.add('active'))},100)});document.querySelector('form').addEventListener('submit',(e)=>{const btn=e.target.querySelector('button'),orig=btn.innerHTML;btn.innerHTML=`<span class="uppercase font-bold tracking-widest animate-pulse">Authenticating...</span><span class="material-symbols-outlined animate-spin">refresh</span>`;btn.disabled=true;setTimeout(()=>{btn.innerHTML=orig;btn.disabled=false;alert('Authentication system ready. Secure layer active.')},2000)});</script>
+
+<!-- Login Form (shown when not authenticated) -->
+<div id="login-container" class="min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-md laurel-glass rounded-xl p-8 md:p-12 relative overflow-hidden">
+    <div class="relative z-10 text-center mb-10">
+      <h1 class="font-display-lg text-white mb-2 font-bold text-4xl">Admin Login</h1>
+      <p class="text-white/70 text-sm">Enter your credentials to manage the site</p>
+    </div>
+    <form id="login-form" class="space-y-6 relative z-10">
+      <div class="space-y-3">
+        <label class="block font-accent-label text-accent-label font-bold text-laurel-green tracking-wider uppercase text-sm">Email</label>
+        <input type="email" id="login-email" class="w-full bg-white/5 border-0 border-b-2 py-4 px-2 focus:ring-0 input-focus-border text-white placeholder:text-white/30 border-white/20" placeholder="admin@example.com" required>
+      </div>
+      <div class="space-y-3">
+        <label class="block font-accent-label text-accent-label font-bold text-laurel-green tracking-wider uppercase text-sm">Password</label>
+        <input type="password" id="login-password" class="w-full bg-white/5 border-0 border-b-2 py-4 px-2 focus:ring-0 input-focus-border text-white border-white/20" placeholder="••••••••" required>
+      </div>
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-laurel-green text-black font-accent-label font-bold py-5 px-8 hover:bg-opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-4 group rounded">
+          <span class="uppercase tracking-widest">Sign In</span>
+          <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </button>
+      </div>
+      <p id="login-error" class="text-red-400 text-sm text-center hidden"></p>
+    </form>
+    <div class="mt-8 flex justify-center">
+      <div class="h-1 w-12 bg-laurel-green/30 rounded-full"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard (shown when authenticated) -->
+<div id="dashboard-container" class="hidden flex-col min-h-screen">
+  <div class="admin-header">
+    <div class="max-w-container-max mx-auto px-4 flex justify-between items-center">
+      <div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">
+        Alpha Admin <span class="w-3 h-3 bg-laurel-green inline-block rotate-45"></span>
+      </div>
+      <div class="flex items-center gap-6">
+        <span id="current-user" class="text-white/70">Loading...</span>
+        <button id="logout-btn" class="bg-red-500/20 text-red-400 px-4 py-2 rounded hover:bg-red-500/30 transition">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-grow flex overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto p-6">
+    <div class="laurel-glass rounded-lg overflow-hidden h-full flex flex-col">
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-white/10">
+        <button class="tab-button active" data-tab="inquiries">Inquiries</button>
+        <button class="tab-button" data-tab="services">Services</button>
+        <button class="tab-button" data-tab="portfolio">Portfolio</button>
+        <button class="tab-button" data-tab="team">Team</button>
+        <button class="tab-button" data-tab="settings">Settings</button>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="flex-grow overflow-y-auto p-8">
+        <!-- Inquiries Tab -->
+        <div class="tab-content active" data-tab-content="inquiries">
+          <h2 class="text-2xl font-bold text-white mb-6">Contact Inquiries</h2>
+          <div id="inquiries-list" class="space-y-4">
+            <p class="text-white/70">Loading inquiries...</p>
+          </div>
+        </div>
+
+        <!-- Services Tab -->
+        <div class="tab-content" data-tab-content="services">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-white">Services Management</h2>
+            <button onclick="ServicesCMS.createService()" class="bg-laurel-green text-black px-6 py-2 font-bold rounded hover:bg-opacity-90 transition">
+              + Add Service
+            </button>
+          </div>
+          <div id="services-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p class="text-white/70">Loading services...</p>
+          </div>
+        </div>
+
+        <!-- Portfolio Tab -->
+        <div class="tab-content" data-tab-content="portfolio">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-white">Portfolio Management</h2>
+            <button onclick="PortfolioCMS.createPortfolio()" class="bg-laurel-green text-black px-6 py-2 font-bold rounded hover:bg-opacity-90 transition">
+              + Add Portfolio Item
+            </button>
+          </div>
+          <div id="portfolio-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <p class="text-white/70">Loading portfolio...</p>
+          </div>
+        </div>
+
+        <!-- Team Tab -->
+        <div class="tab-content" data-tab-content="team">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-white">Team Management</h2>
+            <button onclick="TeamCMS.createMember()" class="bg-laurel-green text-black px-6 py-2 font-bold rounded hover:bg-opacity-90 transition">
+              + Add Team Member
+            </button>
+          </div>
+          <div id="team-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <p class="text-white/70">Loading team...</p>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-content" data-tab-content="settings">
+          <h2 class="text-2xl font-bold text-white mb-6">Site Settings</h2>
+          <div class="laurel-glass p-6 rounded">
+            <p class="text-white/70">Settings management coming soon...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/modal-form.js"></script>
+<script src="js/services-cms.js"></script>
+<script src="js/portfolio-cms.js"></script>
+<script src="js/team-cms.js"></script>
+<script src="js/admin-dashboard.js"></script>
 </body>
 </html>
