@@ -31,7 +31,8 @@ if settings.ENVIRONMENT == "production":
     app.add_middleware(HTTPSRedirectMiddleware)
 
 # Add CORS middleware
-origins = [origin.strip() for origin in settings.FRONTEND_ORIGIN.split(",") if origin.strip()]
+frontend_origin_value = settings.get_frontend_origin_value()
+origins = [origin.strip() for origin in frontend_origin_value.split(",") if origin.strip()]
 
 app.add_middleware(
     CORSMiddleware,

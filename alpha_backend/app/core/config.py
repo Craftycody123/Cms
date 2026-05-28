@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     MAIL_SERVER: str
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
-    FRONTEND_ORIGIN: str
+    FRONTEND_ORIGIN: str = ""
+    ALLOWED_ORIGINS: str = ""
     CLOUDINARY_CLOUD_NAME: str
     CLOUDINARY_API_KEY: str
     CLOUDINARY_API_SECRET: str
@@ -26,5 +27,8 @@ class Settings(BaseSettings):
         if not v or len(v) < 32:
             raise ValueError('SECRET_KEY must be at least 32 characters and not empty. Set it in .env file.')
         return v
+
+    def get_frontend_origin_value(self) -> str:
+        return self.FRONTEND_ORIGIN or self.ALLOWED_ORIGINS
 
 settings = Settings()
