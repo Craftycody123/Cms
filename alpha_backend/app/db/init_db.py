@@ -1,6 +1,6 @@
 import logging
 from sqlalchemy.orm import Session
-from app.core.security import hash_password
+from app.core.security import hash_password, verify_password
 from app.core.config import settings
 from app.models.user import User
 from app.models.service import Service
@@ -24,6 +24,21 @@ def init_db(db: Session):
             db.add(admin)
             db.commit()
             logger.info(f"Admin user created: {settings.ADMIN_EMAIL}")
+    else:
+        updated = False
+
+        if not admin.is_admin:
+                        admin.is_admin = True
+                        updated = True
+
+        if settings.ADMIN_PASSWORD and not verify_password(settings.ADMIN_PASSWORD, admin.hashed_password):
+            admin.hashed_password = hash_password(settings.ADMIN_PASSWORD)
+            updated = True
+
+        if updated:
+            db.add(admin)
+            db.commit()
+            logger.info(f"Admin user updated: {settings.ADMIN_EMAIL}")
 
     if db.query(Service).count() == 0:
         services = [
