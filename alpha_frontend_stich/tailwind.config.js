@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
- content: [
-  "./alpha_frontend_stich/**/*.html"
-],
+  content: [
+    "./*.html",
+    "./js/**/*.js"
+  ],
 
   darkMode: "class",
 

@@ -2,7 +2,7 @@
  * API Service - Centralized API communication with backend
  */
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = window.__API_URL__ || 'http://localhost:8000/api';
 
 class APIService {
   static getHeaders() {
