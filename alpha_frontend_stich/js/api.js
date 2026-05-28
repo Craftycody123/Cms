@@ -3,8 +3,7 @@
  */
 
 const APP_CONFIG = window.APP_CONFIG || (window.APP_CONFIG = {});
-const currentOrigin = window.location?.origin || '';
-const defaultApiBase = currentOrigin.startsWith('http') ? currentOrigin : 'https://cms-rr1p.onrender.com';
+const defaultApiBase = 'https://cms-rr1p.onrender.com';
 APP_CONFIG.API_BASE = APP_CONFIG.API_BASE || defaultApiBase;
 APP_CONFIG.API_URL = APP_CONFIG.API_URL || `${APP_CONFIG.API_BASE}/api`;
 APP_CONFIG.ADMIN_PATH = APP_CONFIG.ADMIN_PATH || '/admin';
@@ -15,6 +14,7 @@ class APIService {
   }
 
   static getHeaders({ contentType = 'application/json', auth = true } = {}) {
+    
     const headers = {};
 
     if (contentType) {
