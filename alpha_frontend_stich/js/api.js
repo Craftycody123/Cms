@@ -2,7 +2,8 @@
  * API Service - Centralized API communication with backend
  */
 
-const API_URL = window.__API_URL__ || 'http://localhost:8000/api';
+const API_BASE = 'https://cms-rr1p.onrender.com';
+const API_URL = `${API_BASE}/api`;
 
 class APIService {
   static getHeaders() {
