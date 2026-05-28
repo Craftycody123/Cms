@@ -10,14 +10,45 @@
   body { background-color: #050505; overflow-x: hidden; }
   .page-bg-fixed { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-20; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTbAOF8jyit9Ule_XlD-x2uReeC9SM1ih7NJMgH3rnSMvsuTxff9lmq8CitkF_SrYAwEw23fb2J9y9PnwhSmnl9TMT1CrGAtGkLsFKPr-aNfKwjuvly0G8NP0r7Xm7UGopZnhH3tSV7XwxtMVDtOOEj10H82rN8TiadcMMFg7h_ATOTdvz6v387AvmrdBQCIu2-mTvfvDAd5DBW16jT_Fes8EMzMc-mq11KgP533Mfqip9enEog_82RWLurNOTxHbmy0O-OlMQxEE'); background-size: cover; background-position: center; background-attachment: fixed; filter: brightness(0.35) saturate(0.8); }
   .laurel-glass { background: rgba(181,191,161,0.05); backdrop-filter: blur(24px); border: 1px solid rgba(181,191,161,0.15); }
-  .service-morph-node { transition: all 0.7s cubic-bezier(0.16,1,0.3,1); position: relative; z-index:10; width:18rem; height:18rem; border-radius:9999px; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; background-size:cover; background-position:center; background-image:var(--bg-img); }
-  .service-morph-node::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.3); transition:background 0.7s ease; z-index:1; }
-  .service-morph-node:hover::before { background:rgba(0,0,0,0.7); }
-  .service-morph-node:hover { border-radius:0.75rem; width:360px; height:auto; min-height:280px; padding:2.5rem; border:1px solid rgba(181,191,161,0.4); box-shadow:0 20px 40px rgba(0,0,0,0.5); transform:translateY(-12px); }
-  .node-content-wrap { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; width:100%; }
-  .reveal-details { max-height:0; opacity:0; transition:all 0.5s ease; overflow:hidden; pointer-events:none; }
-  .service-morph-node:hover .reveal-details { max-height:500px; opacity:1; margin-top:1.5rem; pointer-events:auto; }
-  .service-morph-node:hover .node-icon-wrap { transform:scale(0.85); margin-bottom:0.5rem; }
+  
+  .service-morph-node { 
+    transition: all 0.7s cubic-bezier(0.16,1,0.3,1); 
+    position: relative; 
+    z-index: 10; 
+    width: 18rem; 
+    height: 18rem; 
+    border-radius: 9999px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: var(--bg-img);
+  }
+  .service-morph-node::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    transition: background 0.7s ease;
+    z-index: 1;
+  }
+  .service-morph-node:hover::before { background: rgba(0,0,0,0.7); }
+  .service-morph-node:hover { 
+    border-radius: 0.75rem; 
+    width: 360px; 
+    height: auto; 
+    min-height: 280px; 
+    padding: 2.5rem; 
+    border: 1px solid rgba(181,191,161,0.4); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+    transform: translateY(-12px); 
+  }
+  .node-content-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .reveal-details { max-height: 0; opacity: 0; transition: all 0.5s ease; overflow: hidden; pointer-events: none; }
+  .service-morph-node:hover .reveal-details { max-height: 500px; opacity: 1; margin-top: 1.5rem; pointer-events: auto; }
   .scroll-reveal { opacity:0; transform:translateY(40px); transition:all 1.2s cubic-bezier(0.21,0.45,0.32,0.9); }
   .scroll-reveal.active { opacity:1; transform:translateY(0); }
   .editorial-line { height:1px; background:linear-gradient(to right, #B5BFA1 0%, transparent 100%); width:80px; }
@@ -62,7 +93,7 @@
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/modal-form.js"></script>
-<script src="js/services-cms.js"></script>
+<script src="js/services-cms.js?v=6"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     ServicesCMS.loadServices();

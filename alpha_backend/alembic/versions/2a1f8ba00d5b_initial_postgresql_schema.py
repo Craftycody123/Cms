@@ -50,7 +50,7 @@ def upgrade() -> None:
     op.create_table('services',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
-    sa.Column('category', sa.Enum('outdoor', 'design', 'creative', 'marketing', 'events', 'additional', name='servicecategory'), nullable=False),
+    sa.Column('category', sa.String(length=50), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('icon_url', sa.String(length=255), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=True),

@@ -25,21 +25,20 @@ class ServicesCMS {
       return;
     }
 
-    container.innerHTML = services.map(service => `
-      <div class="service-morph-node scroll-reveal" style="--bg-img: url('${escapeHtml(service.icon_url || 'https://via.placeholder.com/300x300?text=' + encodeURIComponent(service.title))}')">
+    container.innerHTML = services.map(service => {
+      const bgImage = service.icon_url || '';
+      return `
+      <div class="service-morph-node scroll-reveal group cursor-pointer" style="--bg-img: url('${escapeHtml(bgImage)}');">
         <div class="node-content-wrap">
-          <div class="node-icon-wrap">
-            <span class="material-symbols-outlined text-4xl text-laurel-green">${escapeHtml(service.icon_url.split('/').pop().replace(/\.[^.]*$/, '') || 'category')}</span>
-          </div>
           <h3 class="font-headline-md text-white text-center font-bold">${escapeHtml(service.title)}</h3>
-          
           <div class="reveal-details text-center">
-            <p class="font-body-md text-white/90 leading-relaxed">${escapeHtml(service.description)}</p>
-            <p class="text-laurel-green font-accent-label text-sm uppercase tracking-wider mt-4 font-bold">Category: ${escapeHtml(service.category)}</p>
+            <p class="font-body-md text-white/90 leading-relaxed text-sm">${escapeHtml(service.description)}</p>
+            <p class="text-laurel-green font-accent-label text-xs uppercase tracking-wider mt-4 font-bold">Category: ${escapeHtml(service.category)}</p>
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     // Initialize scroll reveal observers
     const reveals = container.querySelectorAll('.scroll-reveal');
@@ -52,6 +51,7 @@ class ServicesCMS {
     }, { threshold: 0.15 });
     reveals.forEach(el => obs.observe(el));
   }
+
 
   // For admin dashboard only
   static renderServicesForAdmin(services) {
@@ -66,32 +66,25 @@ class ServicesCMS {
       return;
     }
 
-    container.innerHTML = services.map(service => `
-      <div class="service-morph-node scroll-reveal" style="--bg-img: url('${escapeHtml(service.icon_url || 'https://via.placeholder.com/300x300?text=' + encodeURIComponent(service.title))}')">
+    container.innerHTML = services.map(service => {
+      const bgImage = service.icon_url || '';
+      return `
+      <div class="service-morph-node scroll-reveal group cursor-pointer" style="--bg-img: url('${escapeHtml(bgImage)}');">
         <div class="node-content-wrap">
-          <div class="node-icon-wrap">
-            <span class="material-symbols-outlined text-4xl text-laurel-green">${escapeHtml(service.icon_url.split('/').pop().replace(/\.[^.]*$/, '') || 'category')}</span>
-          </div>
           <h3 class="font-headline-md text-white text-center font-bold">${escapeHtml(service.title)}</h3>
-          
           <div class="reveal-details text-center">
-            <p class="font-body-md text-white/90 leading-relaxed">${escapeHtml(service.description)}</p>
-            <p class="text-laurel-green font-accent-label text-sm uppercase tracking-wider mt-4 font-bold">Category: ${escapeHtml(service.category)}</p>
-            
+            <p class="font-body-md text-white/90 leading-relaxed text-sm">${escapeHtml(service.description)}</p>
+            <p class="text-laurel-green font-accent-label text-xs uppercase tracking-wider mt-4 font-bold">Category: ${escapeHtml(service.category)}</p>
             <div class="flex gap-2 justify-center mt-6 admin-controls">
-              <button class="btn-edit-service text-sm bg-laurel-green/30 text-laurel-green px-4 py-2 rounded hover:bg-laurel-green/50 transition font-bold" data-id="${service.id}">
-                Edit
-              </button>
-              <button class="btn-delete-service text-sm bg-red-500/30 text-red-300 px-4 py-2 rounded hover:bg-red-500/50 transition font-bold" data-id="${service.id}">
-                Delete
-              </button>
+              <button class="btn-edit-service text-sm bg-laurel-green/50 text-white px-4 py-2 rounded hover:bg-laurel-green/70 transition font-bold" data-id="${service.id}">Edit</button>
+              <button class="btn-delete-service text-sm bg-red-500/50 text-white px-4 py-2 rounded hover:bg-red-500/70 transition font-bold" data-id="${service.id}">Delete</button>
             </div>
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
-    // Attach event listeners
     document.querySelectorAll('.btn-edit-service').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -104,17 +97,6 @@ class ServicesCMS {
         this.deleteService(e.target.dataset.id);
       });
     });
-
-    // Initialize scroll reveal observers
-    const reveals = container.querySelectorAll('.scroll-reveal');
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.15 });
-    reveals.forEach(el => obs.observe(el));
   }
 
   static async editService(id) {

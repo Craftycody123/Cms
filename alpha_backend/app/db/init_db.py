@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.core.security import hash_password
 from app.core.config import settings
 from app.models.user import User
-from app.models.service import Service, ServiceCategory
+from app.models.service import Service
 from app.models.portfolio import Portfolio
 from app.models.team import Team
 from app.models.site_setting import SiteSetting
@@ -27,12 +27,12 @@ def init_db(db: Session):
 
     if db.query(Service).count() == 0:
         services = [
-            Service(title="Outdoor Advertising", category=ServiceCategory.outdoor, description="High-impact outdoor campaigns.", icon_url=""),
-            Service(title="Graphic Design", category=ServiceCategory.design, description="Stunning visual designs.", icon_url=""),
-            Service(title="Creative Strategy", category=ServiceCategory.creative, description="Innovative creative solutions.", icon_url=""),
-            Service(title="Digital Marketing", category=ServiceCategory.marketing, description="Data-driven marketing.", icon_url=""),
-            Service(title="Event Management", category=ServiceCategory.events, description="Memorable brand events.", icon_url=""),
-            Service(title="Additional Services", category=ServiceCategory.additional, description="Custom tailored solutions.", icon_url=""),
+            Service(title="Outdoor Advertising", category="outdoor", description="High-impact outdoor campaigns.", icon_url=""),
+            Service(title="Graphic Design", category="design", description="Stunning visual designs.", icon_url=""),
+            Service(title="Creative Strategy", category="creative", description="Innovative creative solutions.", icon_url=""),
+            Service(title="Digital Marketing", category="marketing", description="Data-driven marketing.", icon_url=""),
+            Service(title="Event Management", category="events", description="Memorable brand events.", icon_url=""),
+            Service(title="Additional Services", category="additional", description="Custom tailored solutions.", icon_url=""),
         ]
         db.add_all(services)
         db.commit()

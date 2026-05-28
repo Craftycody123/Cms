@@ -1,22 +1,13 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum, Text
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text
 from sqlalchemy.sql import func
-import enum
 from app.db.session import Base
-
-class ServiceCategory(enum.Enum):
-    outdoor = "outdoor"
-    design = "design"
-    creative = "creative"
-    marketing = "marketing"
-    events = "events"
-    additional = "additional"
 
 class Service(Base):
     __tablename__ = "services"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
-    category = Column(Enum(ServiceCategory), nullable=False)
+    category = Column(String(50), nullable=False)
     description = Column(Text, nullable=True)
     icon_url = Column(String(255), nullable=True)
     is_active = Column(Boolean, default=True)

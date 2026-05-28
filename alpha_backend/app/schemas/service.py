@@ -1,11 +1,10 @@
 from pydantic import BaseModel, ConfigDict
 from typing import Optional
 from datetime import datetime
-from app.models.service import ServiceCategory
 
 class ServiceBase(BaseModel):
     title: str
-    category: ServiceCategory
+    category: str
     description: Optional[str] = None
     icon_url: Optional[str] = None
     is_active: bool = True
@@ -15,7 +14,7 @@ class ServiceCreate(ServiceBase):
 
 class ServiceUpdate(BaseModel):
     title: Optional[str] = None
-    category: Optional[ServiceCategory] = None
+    category: Optional[str] = None
     description: Optional[str] = None
     icon_url: Optional[str] = None
     is_active: Optional[bool] = None
