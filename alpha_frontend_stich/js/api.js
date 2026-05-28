@@ -3,8 +3,11 @@
  */
 
 const APP_CONFIG = window.APP_CONFIG || (window.APP_CONFIG = {});
-const defaultApiBase = 'https://cms-rr1p.onrender.com';
+const currentOrigin = window.location?.origin || '';
+const defaultApiBase = currentOrigin.startsWith('http') ? currentOrigin : 'https://cms-rr1p.onrender.com';
+const fallbackApiBase = 'https://cms-rr1p.onrender.com';
 APP_CONFIG.API_BASE = APP_CONFIG.API_BASE || defaultApiBase;
+APP_CONFIG.FALLBACK_API_BASE = APP_CONFIG.FALLBACK_API_BASE || fallbackApiBase;
 APP_CONFIG.API_URL = APP_CONFIG.API_URL || `${APP_CONFIG.API_BASE}/api`;
 APP_CONFIG.ADMIN_PATH = APP_CONFIG.ADMIN_PATH || '/admin';
 
@@ -55,16 +58,30 @@ class APIService {
     window.location.href = APP_CONFIG.ADMIN_PATH;
   }
 
-  static async request(path, options = {}, { redirectOnUnauthorized = true, auth = true } = {}) {
+  static buildRequestHeaders({ contentType = 'application/json', auth = true } = {}) {
+    const headers = {};
+
+    if (contentType) {
+      headers['Content-Type'] = contentType;
+    }
+
+    if (auth) {
+      const token = this.getToken();
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+    }
+
+    return headers;
+  }
+
+  static buildRequestOptions(options = {}, auth = true) {
     const contentType = Object.prototype.hasOwnProperty.call(options, 'contentType')
       ? options.contentType
       : 'application/json';
 
     const requestHeaders = {
-      ...this.getHeaders({
-        contentType,
-        auth
-      }),
+      ...this.buildRequestHeaders({ contentType, auth }),
       ...(options.headers || {})
     };
 
@@ -72,12 +89,31 @@ class APIService {
       delete requestHeaders['Content-Type'];
     }
 
-    const response = await fetch(`${APP_CONFIG.API_URL}${path}`, {
+    return {
       ...options,
       headers: requestHeaders
-    });
+    };
+  }
 
-    const data = await this.parseResponse(response);
+  static async fetchFromBase(baseUrl, path, options = {}) {
+    return fetch(`${baseUrl}/api${path}`, this.buildRequestOptions(options, options.auth !== false));
+  }
+
+  static async request(path, options = {}, { redirectOnUnauthorized = true, auth = true } = {}) {
+    const requestOptions = {
+      ...options,
+      auth
+    };
+
+    let response = await this.fetchFromBase(APP_CONFIG.API_BASE, path, requestOptions);
+    let data = await this.parseResponse(response);
+
+    if (response.status === 404 && APP_CONFIG.FALLBACK_API_BASE && APP_CONFIG.FALLBACK_API_BASE !== APP_CONFIG.API_BASE) {
+      const fallbackResponse = await this.fetchFromBase(APP_CONFIG.FALLBACK_API_BASE, path, requestOptions);
+      const fallbackData = await this.parseResponse(fallbackResponse);
+      response = fallbackResponse;
+      data = fallbackData;
+    }
 
     if (!response.ok) {
       if (response.status === 401 && redirectOnUnauthorized) {
@@ -93,12 +129,31 @@ class APIService {
 
   // ==================== AUTHENTICATION ====================
   static async login(username, password) {
-    const response = await fetch(`${APP_CONFIG.API_URL}/auth/login`, {
+    const response = await this.fetchFromBase(APP_CONFIG.API_BASE, '/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ username, password })
+      body: new URLSearchParams({ username, password }),
+      auth: false
     });
     const data = await this.parseResponse(response);
+
+    if (response.status === 404 && APP_CONFIG.FALLBACK_API_BASE && APP_CONFIG.FALLBACK_API_BASE !== APP_CONFIG.API_BASE) {
+      const fallbackResponse = await this.fetchFromBase(APP_CONFIG.FALLBACK_API_BASE, '/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username, password }),
+        auth: false
+      });
+      const fallbackData = await this.parseResponse(fallbackResponse);
+
+      if (!fallbackResponse.ok) {
+        const message = fallbackData?.detail || fallbackData?.message || fallbackData || 'Login failed';
+        throw new Error(message);
+      }
+
+      localStorage.setItem('authToken', fallbackData.access_token);
+      return fallbackData;
+    }
 
     if (!response.ok) {
       const message = data?.detail || data?.message || data || 'Login failed';
