@@ -90,6 +90,11 @@ async def about(request: Request):
     )
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 @app.get("/services")
 async def services_page(request: Request):
     return templates.TemplateResponse(
