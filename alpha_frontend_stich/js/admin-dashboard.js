@@ -66,6 +66,10 @@ class AdminDashboard {
   static async loadDashboard() {
     // Load current user
     const user = await AuthService.getCurrentUser();
+    if (!user) {
+      this.showLogin();
+      return;
+    }
     this.updateUserDisplay(user);
 
     // Initialize tabs
@@ -239,9 +243,6 @@ class AdminDashboard {
   static logout() {
     if (confirmAction('Are you sure you want to logout?')) {
       AuthService.logout();
-      this.showLogin();
-      document.getElementById('login-form').reset();
-      showToast('Logged out successfully', 'success');
     }
   }
 }

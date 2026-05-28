@@ -2,224 +2,240 @@
  * API Service - Centralized API communication with backend
  */
 
-const API_BASE = 'https://cms-rr1p.onrender.com';
-const API_URL = `${API_BASE}/api`;
+const APP_CONFIG = window.APP_CONFIG || (window.APP_CONFIG = {});
+APP_CONFIG.API_BASE = APP_CONFIG.API_BASE || 'https://cms-rr1p.onrender.com';
+APP_CONFIG.API_URL = APP_CONFIG.API_URL || `${APP_CONFIG.API_BASE}/api`;
+APP_CONFIG.ADMIN_PATH = APP_CONFIG.ADMIN_PATH || '/admin';
 
 class APIService {
-  static getHeaders() {
-    const token = localStorage.getItem('authToken');
-    return {
-      'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` })
-    };
+  static getToken() {
+    return localStorage.getItem('authToken') || '';
   }
 
-  static async handleResponse(response) {
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.detail || data.message || 'API Error');
+  static getHeaders({ contentType = 'application/json', auth = true } = {}) {
+    const headers = {};
+
+    if (contentType) {
+      headers['Content-Type'] = contentType;
     }
+
+    if (auth) {
+      const token = this.getToken();
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+    }
+
+    return headers;
+  }
+
+  static async parseResponse(response) {
+    if (response.status === 204) {
+      return null;
+    }
+
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      return response.json();
+    }
+
+    const text = await response.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  }
+
+  static handleUnauthorized() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    window.location.href = APP_CONFIG.ADMIN_PATH;
+  }
+
+  static async request(path, options = {}, { redirectOnUnauthorized = true, auth = true } = {}) {
+    const contentType = Object.prototype.hasOwnProperty.call(options, 'contentType')
+      ? options.contentType
+      : 'application/json';
+
+    const requestHeaders = {
+      ...this.getHeaders({
+        contentType,
+        auth
+      }),
+      ...(options.headers || {})
+    };
+
+    if (contentType === null) {
+      delete requestHeaders['Content-Type'];
+    }
+
+    const response = await fetch(`${APP_CONFIG.API_URL}${path}`, {
+      ...options,
+      headers: requestHeaders
+    });
+
+    const data = await this.parseResponse(response);
+
+    if (!response.ok) {
+      if (response.status === 401 && redirectOnUnauthorized) {
+        this.handleUnauthorized();
+      }
+
+      const message = data?.detail || data?.message || data || 'API Error';
+      throw new Error(message);
+    }
+
     return data;
   }
 
   // ==================== AUTHENTICATION ====================
   static async login(username, password) {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${APP_CONFIG.API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ username, password })
     });
-    const data = await this.handleResponse(response);
+    const data = await this.parseResponse(response);
+
+    if (!response.ok) {
+      const message = data?.detail || data?.message || data || 'Login failed';
+      throw new Error(message);
+    }
+
     localStorage.setItem('authToken', data.access_token);
     return data;
   }
 
   static async logout() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
   }
 
   static async getCurrentUser() {
-    const response = await fetch(`${API_URL}/auth/me`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request('/auth/me');
   }
 
   // ==================== SERVICES ====================
   static async getServices() {
-    const response = await fetch(`${API_URL}/services/`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request('/services/');
   }
 
   static async createService(serviceData) {
-    const response = await fetch(`${API_URL}/services/`, {
+    return this.request('/services/', {
       method: 'POST',
-      headers: this.getHeaders(),
       body: JSON.stringify(serviceData)
     });
-    return this.handleResponse(response);
   }
 
   static async updateService(serviceId, serviceData) {
-    const response = await fetch(`${API_URL}/services/${serviceId}`, {
+    return this.request(`/services/${serviceId}`, {
       method: 'PUT',
-      headers: this.getHeaders(),
       body: JSON.stringify(serviceData)
     });
-    return this.handleResponse(response);
   }
 
   static async deleteService(serviceId) {
-    const response = await fetch(`${API_URL}/services/${serviceId}`, {
-      method: 'DELETE',
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(`/services/${serviceId}`, { method: 'DELETE' });
   }
 
   // ==================== PORTFOLIO ====================
   static async getPortfolios() {
-    const response = await fetch(`${API_URL}/portfolio/`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request('/portfolio/');
   }
 
   static async createPortfolio(portfolioData) {
-    const response = await fetch(`${API_URL}/portfolio/`, {
+    return this.request('/portfolio/', {
       method: 'POST',
-      headers: this.getHeaders(),
       body: JSON.stringify(portfolioData)
     });
-    return this.handleResponse(response);
   }
 
   static async updatePortfolio(portfolioId, portfolioData) {
-    const response = await fetch(`${API_URL}/portfolio/${portfolioId}`, {
+    return this.request(`/portfolio/${portfolioId}`, {
       method: 'PUT',
-      headers: this.getHeaders(),
       body: JSON.stringify(portfolioData)
     });
-    return this.handleResponse(response);
   }
 
   static async deletePortfolio(portfolioId) {
-    const response = await fetch(`${API_URL}/portfolio/${portfolioId}`, {
-      method: 'DELETE',
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(`/portfolio/${portfolioId}`, { method: 'DELETE' });
   }
 
   // ==================== TEAM ====================
   static async getTeamMembers() {
-    const response = await fetch(`${API_URL}/team/`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request('/team/');
   }
 
   static async createTeamMember(memberData) {
-    const response = await fetch(`${API_URL}/team/`, {
+    return this.request('/team/', {
       method: 'POST',
-      headers: this.getHeaders(),
       body: JSON.stringify(memberData)
     });
-    return this.handleResponse(response);
   }
 
   static async updateTeamMember(memberId, memberData) {
-    const response = await fetch(`${API_URL}/team/${memberId}`, {
+    return this.request(`/team/${memberId}`, {
       method: 'PUT',
-      headers: this.getHeaders(),
       body: JSON.stringify(memberData)
     });
-    return this.handleResponse(response);
   }
 
   static async deleteTeamMember(memberId) {
-    const response = await fetch(`${API_URL}/team/${memberId}`, {
-      method: 'DELETE',
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(`/team/${memberId}`, { method: 'DELETE' });
   }
 
   // ==================== INQUIRIES ====================
   static async submitInquiry(inquiryData) {
-    const response = await fetch(`${API_URL}/inquiries/`, {
+    return this.request('/inquiries/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inquiryData)
-    });
-    return this.handleResponse(response);
+    }, { redirectOnUnauthorized: false, auth: false });
   }
 
   static async getInquiries(isRead = null, limit = 50, offset = 0) {
-    let url = `${API_URL}/inquiries/?limit=${limit}&offset=${offset}`;
+    let url = `/inquiries/?limit=${limit}&offset=${offset}`;
     if (isRead !== null) {
       url += `&is_read=${isRead}`;
     }
-    const response = await fetch(url, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(url);
   }
 
   static async markInquiryRead(inquiryId, isRead) {
-    const response = await fetch(`${API_URL}/inquiries/${inquiryId}/read`, {
+    return this.request(`/inquiries/${inquiryId}/read`, {
       method: 'PATCH',
-      headers: this.getHeaders(),
       body: JSON.stringify({ is_read: isRead })
     });
-    return this.handleResponse(response);
   }
 
   static async deleteInquiry(inquiryId) {
-    const response = await fetch(`${API_URL}/inquiries/${inquiryId}`, {
-      method: 'DELETE',
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(`/inquiries/${inquiryId}`, { method: 'DELETE' });
   }
 
   // ==================== SITE SETTINGS ====================
   static async getSiteSettings() {
-    const response = await fetch(`${API_URL}/settings/`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request('/settings/');
   }
 
   static async getSiteSetting(key) {
-    const response = await fetch(`${API_URL}/settings/${key}`, {
-      headers: this.getHeaders()
-    });
-    return this.handleResponse(response);
+    return this.request(`/settings/${key}`);
   }
 
   static async updateSiteSetting(key, value) {
-    const response = await fetch(`${API_URL}/settings/${key}`, {
+    return this.request(`/settings/${key}`, {
       method: 'PUT',
-      headers: this.getHeaders(),
       body: JSON.stringify({ value })
     });
-    return this.handleResponse(response);
   }
 
   // ==================== UPLOAD ====================
   static async uploadFile(file) {
     const formData = new FormData();
     formData.append('file', file);
-    const response = await fetch(`${API_URL}/upload/`, {
+    return this.request('/upload/', {
       method: 'POST',
-      headers: {
-        'Authorization': this.getHeaders().Authorization || ''
-      },
+      contentType: null,
       body: formData
     });
-    return this.handleResponse(response);
   }
 }
