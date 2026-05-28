@@ -31,32 +31,13 @@
       <span class="w-3 h-3 bg-laurel-green inline-block rotate-45"></span>
     </a>
 
-    <div class="hidden md:flex items-center gap-8">
-
-      <a href="/" class="text-white/70 hover:text-white">
-        Home
-      </a>
-
-      <a href="/about" class="text-white/70 hover:text-white">
-        About Alpha
-      </a>
-
-      <a href="/services" class="text-white/70 hover:text-white">
-        Services
-      </a>
-
-      <a href="/works" class="text-white/70 hover:text-white">
-        Works
-      </a>
-
-      <a href="/why" class="text-white font-bold border-b-2 border-laurel-green pb-1">
-        Why Choose Us
-      </a>
-
-      <a href="/contact" class="text-white/70 hover:text-white">
-        Contact
-      </a>
-
+    <div class="hidden md:flex items-center gap-8" id="navLinks">
+      <a href="/" class="nav-link text-white/70 hover:text-white">Home</a>
+      <a href="/about" class="nav-link text-white/70 hover:text-white">About Alpha</a>
+      <a href="/services" class="nav-link text-white/70 hover:text-white">Services</a>
+      <a href="/works" class="nav-link text-white/70 hover:text-white">Works</a>
+      <a href="/why" class="nav-link text-white/70 hover:text-white">Why Choose Us</a>
+      <a href="/contact" class="nav-link text-white/70 hover:text-white">Contact</a>
     </div>
 
   </div>
@@ -71,7 +52,7 @@
       </div>
     </div></div></div></main>
 <footer class="bg-black/80 backdrop-blur-xl border-t border-white/5 w-full py-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base"><div class="flex flex-col items-center md:items-start gap-4"><div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">Alpha<span class="w-2 h-2 bg-laurel-green rotate-45"></span></div><p class="font-body-md text-white/60 md:max-w-xs text-center md:text-left font-medium">Precision-driven advertising for the modern enterprise.</p></div><div class="flex flex-wrap justify-center gap-8"><a href="/" class="text-white/60 hover:text-laurel-green font-semibold">Home</a><a href="/about" class="text-white/60 hover:text-laurel-green font-semibold">About</a><a href="/services" class="text-white/60 hover:text-laurel-green font-semibold">Services</a><a href="/works" class="text-white/60 hover:text-laurel-green font-semibold">Works</a><a href="/why" class="text-white/60 hover:text-laurel-green font-semibold">Why Choose Us</a><a href="/contact" class="text-white/60 hover:text-laurel-green font-semibold">Contact</a></div><div class="font-body-md text-white/40">© 2024 Alpha Advertising Agency.</div></div></footer>
-<script>(function(){const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.2});document.querySelectorAll('.stagger-in').forEach(e=>obs.observe(e));const tl=document.getElementById('timeline-section'),pr=document.getElementById('timeline-progress');if(tl&&pr){const update=()=>{const r=tl.getBoundingClientRect(),start=window.innerHeight*0.7,ht=r.height;let p=((start-r.top)/(ht+window.innerHeight*0.4))*100;p=Math.min(100,Math.max(0,p));pr.style.height=`${p}%`};window.addEventListener('scroll',update);update();}})();</script>
+<script>document.addEventListener('DOMContentLoaded',()=>{const setActiveNavLink=()=>{const currentPath=window.location.pathname;const navLinks=document.querySelectorAll('.nav-link');navLinks.forEach(link=>{link.classList.remove('font-bold','border-b-2','border-laurel-green','pb-1','text-white');link.classList.add('text-white/70')});navLinks.forEach(link=>{const href=link.getAttribute('href');const normalizedPath=currentPath==='/index.html'?'/':currentPath;const normalizedHref=href==='/index.html'?'/':href;if(normalizedPath===normalizedHref){link.classList.remove('text-white/70');link.classList.add('font-bold','border-b-2','border-laurel-green','pb-1','text-white')}})};setActiveNavLink();(function(){const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.2});document.querySelectorAll('.stagger-in').forEach(e=>obs.observe(e));const tl=document.getElementById('timeline-section'),pr=document.getElementById('timeline-progress');if(tl&&pr){const update=()=>{const r=tl.getBoundingClientRect(),start=window.innerHeight*0.7,ht=r.height;let p=((start-r.top)/(ht+window.innerHeight*0.4))*100;p=Math.min(100,Math.max(0,p));pr.style.height=`${p}%`};window.addEventListener('scroll',update);update();}})();});</script>
 <script src="js/utils.js"></script>
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>

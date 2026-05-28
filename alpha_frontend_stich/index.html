@@ -30,28 +30,13 @@
 <nav class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5 h-20">
   <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
     <div class="font-headline-md text-headline-md font-bold tracking-tighter text-white flex items-center gap-2">Alpha<span class="w-3 h-3 bg-laurel-green inline-block rotate-45"></span></div>
-    <div class="hidden md:flex items-center gap-8">
-  <a href="/" class="text-white font-bold border-b-2 border-laurel-green pb-1">Home</a>
-
-  <a href="/about" class="text-white/70 hover:text-white transition-colors">
-    About Alpha
-  </a>
-
-  <a href="/services" class="text-white/70 hover:text-white transition-colors">
-    Services
-  </a>
-
-  <a href="/works" class="text-white/70 hover:text-white transition-colors">
-    Works
-  </a>
-
-  <a href="/why" class="text-white/70 hover:text-white transition-colors">
-    Why Choose Us
-  </a>
-
-  <a href="/contact" class="text-white/70 hover:text-white transition-colors">
-    Contact
-  </a>
+    <div class="hidden md:flex items-center gap-8" id="navLinks">
+  <a href="/" class="nav-link text-white/70 hover:text-white transition-colors">Home</a>
+  <a href="/about" class="nav-link text-white/70 hover:text-white transition-colors">About Alpha</a>
+  <a href="/services" class="nav-link text-white/70 hover:text-white transition-colors">Services</a>
+  <a href="/works" class="nav-link text-white/70 hover:text-white transition-colors">Works</a>
+  <a href="/why" class="nav-link text-white/70 hover:text-white transition-colors">Why Choose Us</a>
+  <a href="/contact" class="nav-link text-white/70 hover:text-white transition-colors">Contact</a>
 </div>
     <!-- Login button removed as per earlier instructions, but you can add it back if needed -->
   </div>
@@ -72,7 +57,37 @@
 <section class="py-24 px-margin-mobile md:px-margin-desktop"><div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter"><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">15+</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Years of Excellence</p></div><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">500+</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Campaigns Delivered</p></div><div class="p-8 border-l-2 border-laurel-green/30 flex flex-col gap-2 reveal-on-scroll"><span class="text-white font-display-lg text-[48px] font-bold">120</span><p class="font-accent-label text-laurel-green tracking-widest uppercase font-bold">Industry Awards</p></div></div></section>
 <section class="py-24 px-margin-mobile md:px-margin-desktop"><div class="max-w-container-max mx-auto"><div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:min-h-[600px]"><div class="md:col-span-2 md:row-span-2 laurel-glass p-10 flex flex-col justify-end relative overflow-hidden group reveal-on-scroll"><div class="absolute inset-0 -z-10 transition-transform duration-1000 group-hover:scale-110"><img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiI5aqbcUvNb-dFfDtVLgQz_AblY5S5bb7c5hjgD3uB8hc-2Bk4QiLspuf-27ifOcmtvNKDXADly5V_9dnE02Ih4gOGjzx-EYG9wkl7h35rk9X9nnTkL_GmCrKN9y4LHAwrPE9aBs5fkxblPCdXsT0AsBJLN8hq-hJb9u5DTRjdvxb9x2ebmq7-nrpcs4q3RVWyRLKCVpVsCKSjs5l3PvwmY_9NyhvT9mA4jBRtThtC1ShlUf2kczPqcYp9b6ZHJvFseBlHMBfhPo"/></div><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div><div class="relative z-10 text-white"><span class="text-laurel-green font-accent-label tracking-widest uppercase text-xs mb-2 block font-bold">Comprehensive</span><h3 class="font-headline-md text-headline-md mb-2 font-extrabold">Integrated Strategy</h3><p class="font-body-md text-white/70">Holistic brand narratives that cut through the noise.</p></div></div><div class="md:col-span-1 laurel-glass p-8 flex flex-col gap-4 border-l-4 border-l-laurel-green reveal-on-scroll"><span class="material-symbols-outlined text-laurel-green text-3xl">brush</span><h3 class="font-headline-md text-white text-body-lg font-bold">Identity Design</h3><p class="font-caption text-white/60">Visual systems that define market leaders.</p></div><div class="md:col-span-1 laurel-glass p-8 flex flex-col gap-4 border-l-4 border-l-laurel-green reveal-on-scroll"><span class="material-symbols-outlined text-laurel-green text-3xl">campaign</span><h3 class="font-headline-md text-white text-body-lg font-bold">Global Reach</h3><p class="font-caption text-white/60">Multi-channel media planning.</p></div><div class="md:col-span-2 laurel-glass p-8 flex items-center justify-between border-l-4 border-l-laurel-green reveal-on-scroll"><div><h3 class="font-headline-md text-white font-extrabold">Ready to scale?</h3><p class="font-body-md text-white/70">Connect with our strategic consultants today.</p></div><button class="bg-laurel-green text-black p-5 rounded-full hover:scale-110 transition-all"><span class="material-symbols-outlined">trending_up</span></button></div></div></div></section>
 <footer class="bg-black/80 backdrop-blur-xl border-t border-white/5 w-full py-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-base"><div class="flex flex-col items-center md:items-start gap-4"><div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">Alpha<span class="w-2 h-2 bg-laurel-green rotate-45"></span></div><p class="font-body-md text-white/60 md:max-w-xs text-center md:text-left font-medium">Precision-driven advertising for the modern enterprise.</p></div><div class="flex flex-wrap justify-center gap-8"><a href="/" class="text-white/60 hover:text-laurel-green font-semibold">Home</a><a href="/about" class="text-white/60 hover:text-laurel-green font-semibold">About</a><a href="/services" class="text-white/60 hover:text-laurel-green font-semibold">Services</a><a href="/works" class="text-white/60 hover:text-laurel-green font-semibold">Works</a><a href="/why" class="text-white/60 hover:text-laurel-green font-semibold">Why Choose Us</a><a href="/contact" class="text-white/60 hover:text-laurel-green font-semibold">Contact</a></div><div class="font-body-md text-white/40">© 2024 Alpha Advertising Agency.</div></div></footer>
-<script>document.addEventListener('DOMContentLoaded',()=>{const c=document.getElementById('orbitContainer');if(c){const s=['Typography','Ad Campaigns','Brand Strategy','Event Management','Exhibition Stands','Billboards','MUPIs','Vehicle Graphics','Logo Design'],r=260;s.forEach((t,i)=>{const a=(i/s.length)*360,w=document.createElement('div');w.className='node-wrapper';w.style.transform=`rotate(${a}deg) translate(${r}px)`;const n=document.createElement('div');n.className='service-node';n.textContent=t;const k=`counter-rotate-node-${i}`,sty=document.createElement('style');sty.innerText=`@keyframes ${k}{from{transform:translate(-50%,-50%) rotate(${-a}deg)}to{transform:translate(-50%,-50%) rotate(${-a-360}deg)}}`;document.head.appendChild(sty);n.style.animationName=k;n.style.animationDuration='60s';n.style.animationTimingFunction='linear';n.style.animationIterationCount='infinite';w.appendChild(n);c.appendChild(w)});}
+<script>document.addEventListener('DOMContentLoaded',()=>{
+// Set active nav link based on current page
+const setActiveNavLink = () => {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  // First, remove active state from all links
+  navLinks.forEach(link => {
+    link.classList.remove('font-bold', 'border-b-2', 'border-laurel-green', 'pb-1', 'text-white');
+    link.classList.add('text-white/70');
+  });
+  
+  // Then add active state to the matching link
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    // Normalize both paths to compare
+    const normalizedPath = currentPath === '/index.html' ? '/' : currentPath;
+    const normalizedHref = href === '/index.html' ? '/' : href;
+    
+    if (normalizedPath === normalizedHref) {
+      link.classList.remove('text-white/70');
+      link.classList.add('font-bold', 'border-b-2', 'border-laurel-green', 'pb-1', 'text-white');
+    }
+  });
+};
+setActiveNavLink();
+
+// Orbit container setup
+const c=document.getElementById('orbitContainer');if(c){const s=['Typography','Ad Campaigns','Brand Strategy','Event Management','Exhibition Stands','Billboards','MUPIs','Vehicle Graphics','Logo Design'],r=260;s.forEach((t,i)=>{const a=(i/s.length)*360,w=document.createElement('div');w.className='node-wrapper';w.style.transform=`rotate(${a}deg) translate(${r}px)`;const n=document.createElement('div');n.className='service-node';n.textContent=t;const k=`counter-rotate-node-${i}`,sty=document.createElement('style');sty.innerText=`@keyframes ${k}{from{transform:translate(-50%,-50%) rotate(${-a}deg)}to{transform:translate(-50%,-50%) rotate(${-a-360}deg)}}`;document.head.appendChild(sty);n.style.animationName=k;n.style.animationDuration='60s';n.style.animationTimingFunction='linear';n.style.animationIterationCount='infinite';w.appendChild(n);c.appendChild(w)});}
+
+// Reveal on scroll
 const obs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('active')})},{threshold:.15});document.querySelectorAll('.reveal-on-scroll').forEach(e=>obs.observe(e));setTimeout(()=>{document.querySelectorAll('.reveal-on-scroll').forEach(e=>{e.getBoundingClientRect().top<window.innerHeight&&e.classList.add('active')})},100)});</script>
 </body>
 </html>
