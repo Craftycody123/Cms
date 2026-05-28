@@ -75,12 +75,16 @@ templates = Jinja2Templates(
 @app.get("/")
 async def home(request: Request):
     return templates.TemplateResponse(
+        request,
         "index.html",
         {"request": request}
     )
+
+
 @app.get("/about")
 async def about(request: Request):
     return templates.TemplateResponse(
+        request,
         "about.html",
         {"request": request}
     )
@@ -89,6 +93,7 @@ async def about(request: Request):
 @app.get("/services")
 async def services_page(request: Request):
     return templates.TemplateResponse(
+        request,
         "services.html",
         {"request": request}
     )
@@ -97,6 +102,7 @@ async def services_page(request: Request):
 @app.get("/works")
 async def works(request: Request):
     return templates.TemplateResponse(
+        request,
         "works.html",
         {"request": request}
     )
@@ -105,6 +111,7 @@ async def works(request: Request):
 @app.get("/why")
 async def why(request: Request):
     return templates.TemplateResponse(
+        request,
         "why.html",
         {"request": request}
     )
@@ -113,6 +120,7 @@ async def why(request: Request):
 @app.get("/contact")
 async def contact(request: Request):
     return templates.TemplateResponse(
+        request,
         "contact.html",
         {"request": request}
     )
@@ -121,11 +129,10 @@ async def contact(request: Request):
 @app.get("/admin")
 async def admin(request: Request):
     return templates.TemplateResponse(
+        request,
         "admin.html",
         {"request": request}
     )
-
-
 # Register routers
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(services.router, prefix="/api/services", tags=["services"])

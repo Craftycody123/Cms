@@ -44,10 +44,10 @@ class ModalForm {
           ${fieldsHTML}
           ${previewHTML}
           <div class="flex gap-3 mt-8">
-            <button type="submit" class="flex-1 bg-laurel-green text-black font-bold py-2 rounded hover:bg-opacity-90 transition">
+            <button type="submit" class="flex-1 bg-laurel-green text-black font-bold px-6 py-3 rounded hover:bg-opacity-90 transition">
               Save
             </button>
-            <button type="button" class="flex-1 bg-red-500/20 text-red-400 font-bold py-2 rounded hover:bg-red-500/30 transition" onclick="document.getElementById('${modalId}').remove();">
+            <button type="button" class="flex-1 bg-red-500/20 text-red-400 font-bold px-6 py-3 rounded hover:bg-red-500/30 transition" onclick="document.getElementById('${modalId}').remove();">
               Cancel
             </button>
           </div>

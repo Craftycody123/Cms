@@ -64,10 +64,10 @@ class PortfolioCMS {
         <h3 class="font-headline-md text-white font-bold mb-2">${escapeHtml(item.title)}</h3>
         <p class="text-white/70 text-sm mb-3">${escapeHtml(item.description)}</p>
         <div class="flex gap-2 mt-4 admin-controls">
-          <button class="btn-edit-portfolio text-sm bg-laurel-green/20 text-laurel-green px-3 py-2 rounded hover:bg-laurel-green/30 transition" data-id="${item.id}">
+          <button class="btn-edit-portfolio text-sm bg-laurel-green/20 text-laurel-green px-5 py-3 rounded hover:bg-laurel-green/30 transition font-bold" data-id="${item.id}">
             Edit
           </button>
-          <button class="btn-delete-portfolio text-sm bg-red-500/20 text-red-400 px-3 py-2 rounded hover:bg-red-500/30 transition" data-id="${item.id}">
+          <button class="btn-delete-portfolio text-sm bg-red-500/20 text-red-400 px-5 py-3 rounded hover:bg-red-500/30 transition font-bold" data-id="${item.id}">
             Delete
           </button>
         </div>
