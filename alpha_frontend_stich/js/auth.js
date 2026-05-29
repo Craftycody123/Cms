@@ -24,7 +24,7 @@ class AuthService {
 
   static logout() {
     APIService.logout();
-    window.location.href = window.APP_CONFIG?.ADMIN_PATH || '/admin';
+    window.location.href = window.APP_CONFIG?.ADMIN_PATH || 'admin.html';
   }
 
   static async getCurrentUser() {
@@ -46,7 +46,7 @@ class AuthService {
   static requireAdmin() {
     if (!this.isLoggedIn()) {
       showToast('Please log in first', 'warning');
-      window.location.href = window.APP_CONFIG?.ADMIN_PATH || '/admin';
+      window.location.href = window.APP_CONFIG?.ADMIN_PATH || 'admin.html';
       return false;
     }
     if (!this.isAdmin()) {
@@ -59,7 +59,7 @@ class AuthService {
   static requireLogin() {
     if (!this.isLoggedIn()) {
       showToast('Please log in first', 'warning');
-      window.location.href = window.APP_CONFIG?.ADMIN_PATH || '/admin';
+      window.location.href = window.APP_CONFIG?.ADMIN_PATH || 'admin.html';
       return false;
     }
     return true;
