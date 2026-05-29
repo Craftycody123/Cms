@@ -60,7 +60,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 app.mount(
     "/static",
-    StaticFiles(directory=BASE_DIR / "alpha_frontend_stich"),
+    StaticFiles(directory=BASE_DIR / "static"),
     name="static"
 )
 
