@@ -9,7 +9,7 @@ const fallbackApiBase = 'https://cms-rr1p.onrender.com';
 APP_CONFIG.API_BASE = APP_CONFIG.API_BASE || defaultApiBase;
 APP_CONFIG.FALLBACK_API_BASE = APP_CONFIG.FALLBACK_API_BASE || fallbackApiBase;
 APP_CONFIG.API_URL = APP_CONFIG.API_URL || `${APP_CONFIG.API_BASE}/api`;
-APP_CONFIG.ADMIN_PATH = APP_CONFIG.ADMIN_PATH || '/admin';
+APP_CONFIG.ADMIN_PATH = APP_CONFIG.ADMIN_PATH || 'admin.html';
 
 class APIService {
   static getToken() {
@@ -55,7 +55,8 @@ class APIService {
   static handleUnauthorized() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('currentUser');
-    window.location.href = APP_CONFIG.ADMIN_PATH;
+    // Redirect explicitly to the admin HTML page
+    window.location.href = 'admin.html';
   }
 
   static buildRequestHeaders({ contentType = 'application/json', auth = true } = {}) {
